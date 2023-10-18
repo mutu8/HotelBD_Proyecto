@@ -1,0 +1,89 @@
+@import url('./index.css');
+@import url('./header.css');
+@import url('./footer.css');
+
+.hero {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.hero__content {
+	flex: 1;
+}
+
+.relax__titulo {
+	color: var(--morado);
+	font-family: Quicksand;
+	font-size: 24px;
+	font-weight: 400;
+	margin-left: 115px;
+}
+
+.relax {
+	margin: 80px 0;
+}
+
+.relax--container {
+	display: flex;
+	justify-content: center;
+	margin-top: 70px;
+}
+
+.relax__item {
+	width: 350px;
+	background-color: var(--blanco);
+	margin-left: 32px;
+	height: 550px;
+	-webkit-clip-path: polygon(0 8%, 100% 0, 100% 92%, 0% 100%);
+	clip-path: polygon(0 8%, 100% 0, 100% 92%, 0% 100%);
+}
+
+.relax__item:first-child {
+	margin-left: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.relax__item:nth-of-type(2) {
+	height: 600px;
+	position: relative;
+	bottom: 50px;
+}
+
+.relax__item:last-child {
+	height: 655px;
+	position: relative;
+	bottom: 105px;
+}
+
+.relax__item__top {
+	margin-top: 60px;
+}
+
+.relax__item__title:first-child {
+	margin-top: 0;
+}
+
+.relax__item__title {
+	color: var(--morado);
+	font-size: 20px;
+	font-weight: 400;
+	text-align: center;
+	margin-top: 24px;
+}
+
+.relax__item__p {
+	color: var(--morado);
+	font-size: 16px;
+	line-height: 25px;
+	padding: 16px 24px;
+	text-align: justify;
+}
+
+.relax__image {
+	width: inherit;
+	height: 200px;
+	object-fit: cover;
+}

@@ -1,0 +1,232 @@
+@import url('./index.css');
+@import url('./footer.css');
+
+/* header */
+
+.hero__header {
+	background-image: url('../Imagenes/Home/cover.jpeg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	height: 475px;
+	position: relative;
+}
+
+.header__nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: 25px;
+
+}
+
+.header__logo {
+	margin-left: 64px;
+}
+
+.header__logo__img {
+	width: 70px;
+}
+
+.header__lista {
+	font-family: var(--Quicksand);
+	display: flex;
+	font-size: 18px;
+}
+
+.header__lista__item {
+	margin: 0 18px;
+	position: relative;
+}
+
+.header__lista__item:first-child {
+	margin-left: 0;
+}
+
+.header__lista__item:last-child {
+	margin-right: 64px;
+}
+
+.lista__item__ancla {
+	color: var(--blanco);
+	padding-bottom: 10px;
+	transition: .2s;
+}
+
+.lista__item__ancla:hover {
+	color: var(--gris);
+}
+
+.header__lista__dropdown {
+	display: none;
+	position: absolute;
+	z-index: 10;
+	top: 30px;
+}
+
+.header__lista__item:first-child:hover .header__lista__dropdown {
+	display: block;
+}
+
+.header__lista__item:nth-of-type(4):hover .header__lista__dropdown {
+	display: block;
+}
+
+.dropdown__item__anchor {
+	padding: 5px 10px;
+	display: block;
+	background-color: var(--blanco);
+	color: var(--morado);
+}
+
+.dropdown__item__anchor:hover {
+	background-color: var(--morado);
+	color: var(--blanco);
+}
+
+/* reserva */
+
+.header__reserva {
+	border-radius: 6px;
+	padding: 16px;
+	background-color: var(--blanco);
+	position: absolute;
+	right: 64px;
+	top: 50%;
+}
+
+.form__fechas {
+	display: flex;
+	font-family: var(--Quicksand);
+	font-size: 12px;
+}
+
+.form__entrada, .form__salida {
+	cursor: pointer;
+	position: relative;
+	height: 24px;
+}
+
+.form__entrada {
+	margin-right: 4px;
+	width: 115px;
+}
+
+.form__salida {
+	margin-left: 4px;
+	width: 109px;
+}
+
+.reserva__go {
+	display: block;
+	text-align: center;
+	background-color: var(--morado);
+	color: var(--blanco);
+	padding: 6px 0;
+	cursor: pointer;
+	margin-top: 8px;
+}
+
+.entrada, .salida {
+	background-color: var(--gris);
+	color: var(--negro);
+	border: 0;
+	padding: 4px 0 4px 8px;
+	cursor: pointer;
+}
+
+.calendar {
+	width: 15px;
+	height: 15px;
+	color: var(--morado);
+	position: absolute;
+	top: 3.5px;
+	right: 9px;
+}
+
+/* About us */
+
+.hero__aboutus {
+	padding: 64px 0;
+	background-color: var(--blanco);
+}
+
+.aboutus__container {
+	width: 100%;
+	max-width: 1150px;
+	margin: 0 auto;
+}
+
+.container__title {
+	font-size: 24px;
+	font-weight: bold;
+	color: var(--morado);
+	text-align: center;
+	padding-bottom: 16px;
+	text-transform: uppercase;
+}
+
+.container__parr {
+	font-size: 20px;
+	color: var(--gris-intenso);
+	text-align: center;
+	line-height: 32px;
+}
+
+/* Content */
+
+.hero__content {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.content__item {
+	position: relative;
+	width: 50%;
+	height: 232px;
+}
+
+.content__item:hover .habitaciones__overlay {
+	top: 12%;
+	bottom: 12%;
+	right: 7%;
+	left: 7%;
+}
+
+.content__item:hover .overlay__title {
+	font-size: 22px;
+}
+
+.habitaciones__fondo {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	width: 100%;
+	height: inherit;
+	object-fit: cover;
+}
+
+.habitaciones__overlay {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 10%;
+	bottom: 10%;
+	right: 5%;
+	left: 5%;
+	border: 3px solid var(--blanco);
+	transition: .4s;
+}
+
+.overlay__title {
+	font-family: var(--Quicksand);
+	font-weight: 700;
+	font-size: 24px;
+	color: var(--blanco);
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
+	transition: .4s;
+}

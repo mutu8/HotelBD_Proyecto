@@ -1,0 +1,93 @@
+@import url('./index.css');
+@import url('./header.css');
+@import url('./footer.css');
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero__content {
+  flex: 1;
+}
+
+.cont {
+  position: relative;
+}
+
+.logo {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.overlay {
+  text-transform: uppercase;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  text-align: center;
+  font-weight: bold;
+  font-family: var(--Quicksand);
+  font-size: 1.5em;
+  color: var(--blanco);
+}
+
+.container{
+          background: #244651;
+          display: flex;
+          justify-content: space-around;
+}
+
+
+.elemento{ 
+        display:flex;
+        color: var(--blanco);
+          justify-content: center;
+          font-size: 15px;
+          padding: 12px 0; 
+          font-style: italic;}
+
+
+.texto {
+  font-size: 14px;
+  line-height: 24px;
+  padding: 8px;
+}
+
+.texto1 {
+  padding-left: 16px;
+}
+
+.texto2 {
+  padding-right: 16px;
+}
+
+.imagen {
+  height: 100%;
+  width: 600px;
+  object-fit: cover;
+}
+
+.--container-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px 0;
+}
+
+.--container {
+  display: flex;
+  margin-top: 24px;
+}
+
+.--container:first-child .imagen {
+  height: 234px;
+}
+
+.--container:first-child {
+  margin-top: 0;
+}

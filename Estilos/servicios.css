@@ -1,0 +1,57 @@
+@import url('./index.css');
+@import url('./header.css');
+@import url('./footer.css');
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero__content {
+	flex: 1;
+	margin: 40px 0;
+}
+
+.content__grid {
+	display: grid;
+	grid-template: repeat(3, 200px) / repeat(2, 1fr);
+	margin-top: 32px;
+}
+
+.content__title {
+	color: var(--morado);
+	font-size: 1.5em;
+	text-align: center;
+}
+
+.content__image {
+	height: 100%;
+	width: 100%;
+}
+
+.content__info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.content__info__title {
+	font-family: var(--Quicksand);
+	font-size: 20px;
+	color: var(--morado);
+}
+
+.content__text {
+	color: var(--gris-intenso);
+	width: 100%;
+	max-width: 600px;
+	line-height: 27px;
+	text-align: justify;
+	margin-top: 16px;
+}
+
+.content__span {
+	text-decoration: underline;
+}

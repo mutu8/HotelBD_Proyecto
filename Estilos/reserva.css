@@ -1,0 +1,268 @@
+@import url('./index.css');
+@import url('./header.css');
+@import url('./footer.css');
+
+.hero {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.hero__content {
+	flex: 1;
+}
+
+.content__title {
+	font-size: 24px;
+	font-weight: 700;
+	color: var(--morado);
+	text-align: center;
+	margin: 54px 0;
+}
+
+.content__reserva {
+	display: flex;
+	justify-content: space-evenly;
+	margin-bottom: 72px;
+}
+
+.reserva__steps {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.reserva__step {
+	background-color: #ffffff;
+	border-radius: 22px;
+	border: 1px solid var(--morado);
+	margin-bottom: 24px;
+}
+
+.reserva__step:last-child {
+	margin-bottom: 0;
+}
+
+.reserva__step:first-child {
+	background-color: var(--morado);
+	border: 0;
+}
+
+.reserva__step:first-child .reserva__step__anchor {
+	color: var(--blanco);
+}
+
+.reserva__step__anchor {
+	padding: 16px 40px;
+	color: var(--morado);
+	display: block;
+	font-size: 20px;
+	text-align: center;
+}
+
+.reserva__options__fechas {
+	border: 1px solid var(--morado);
+	border-radius: 48px;
+	padding: 32px 72px;
+}
+
+.fechas__form {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.form__top {
+	display: flex;
+	align-items: center;
+	margin-bottom: 24px;
+}
+
+.top__entrada,
+.top__salida {
+	display: flex;
+	align-items: center;
+}
+
+.top__salida {
+	margin-left: 40px;
+}
+
+.top__entrada__label,
+.top__salida__label,
+.bottom__persons__label,
+.bottom__hab__label {
+	color: var(--morado);
+	font-size: 16px;
+	margin-right: 8px;
+}
+
+.top__entrada__fecha,
+.top__salida__fecha {
+	position: relative;
+}
+
+.entrada,
+.salida {
+	border-radius: 16px;
+	background-color: var(--gris);
+	border: 0;
+	padding: 6px 0 6px 10px;
+}
+
+.calendar {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	right: 8px;
+	top: 5px;
+	color: var(--morado);
+}
+
+.form__bottom {
+	display: flex;
+	margin-bottom: 24px;
+
+}
+
+.bottom__persons,
+.bottom__hab {
+	display: flex;
+	align-items: center;
+}
+
+.bottom__hab {
+	margin-left: 40px;
+}
+
+.input__persons {
+	width: 200px;
+}
+
+
+.input__habs {
+	width: 150px;
+}
+
+.persons,
+.habs {
+	background-color: var(--gris);
+	border: 0;
+	padding: 6px 10px;
+	border-radius: 16px;
+}
+
+.form__next {
+	align-self: center;
+	color: var(--morado);
+	background: var(--gris);
+	border-radius: 24px;
+	padding: 8px 32px;
+}
+
+.form__next:hover {
+	color: var(--azul);
+}
+
+.options__hab {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 8px 16px 8px 8px;
+	border: 1px solid var(--morado);
+	margin: 24px 0;
+}
+
+.options__hab:hover {
+	box-shadow: 0 0 4px var(--morado);
+}
+
+.options__hab:last-child {
+	margin-top: 24px;
+	margin-bottom: 0;
+}
+
+.hab__info {
+	display: flex;
+}
+
+.hab__info__image {
+	width: 150px;
+}
+
+.hab__img {
+	width: inherit;
+	height: inherit;
+	vertical-align: top;
+}
+
+.hab__info__quali {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin-left: 16px;
+	min-width: 200px;
+}
+
+.info__quali {
+	color: var(--azul);
+	font-size: 16px;
+	padding-top: 8px;
+	font-weight: 400;
+}
+
+.info__quali__box { 
+	padding-bottom: 8px;
+} 
+
+.info__quali__number {
+	display: inline-block;
+	padding: 8px;
+	background-color: var(--azul);
+	color: var(--blanco);
+}
+
+.info__quali__text {
+	display: inline-block;
+	margin-left: 8px;
+	color: var(--azul);
+}
+
+.hab__services__title {
+	text-align: center;
+	color: var(--azul);
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.hab__services {
+	height: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	padding-top: 10px;
+	margin: 0 40px;
+}
+
+.hab__services__item {
+	margin-top: 16px;
+}
+
+.service {
+	color: var(--azul);
+	width: 24px;
+	height: 24px;
+	margin-left: 16px;
+}
+
+.service:first-child {
+	margin-left: 0;
+}
+
+.hab__more__anchor {
+	color: var(--blanco);
+	background-color: var(--azul);
+	font-size: 14px;
+	border-radius: 22px;
+	padding: 8px 32px;
+}

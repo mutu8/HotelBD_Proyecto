@@ -1,0 +1,92 @@
+@import url('./index.css');
+@import url('./header.css');
+@import url('./footer.css');
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero__content {
+  flex: 1;
+}
+
+.logo {
+ 	display: block;
+ 	width: 100%;
+ 	height: 200px;
+ 	object-fit: cover;
+}
+
+.cont {
+ 	position: relative;
+}
+
+.overlay {
+ 	text-transform: uppercase;
+ 	position: absolute;
+ 	top: 50%;
+ 	right: 0;
+ 	left: 0;
+ 	text-align: center;
+ 	font-weight: bold;
+ 	font-family: var(--Quicksand);
+ 	font-size: 1.5em;
+	color: var(--blanco);
+}
+
+.content__figures {
+	margin: 40px 0;
+}
+
+.figure__row {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 24px;
+}
+
+.figure__row:last-child {
+	margin-bottom: 0;
+}
+
+.figure__anchor {
+	position: relative;
+	width: 340px;
+	height: 200px;
+	margin-right: 16px;
+}
+
+.figure__anchor:last-child {
+	margin-right: 0;
+}
+
+.figure__image {
+	width: inherit;
+	height: inherit;
+	object-fit: cover;
+}
+
+.figure__text {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 10%;
+	bottom: 10%;
+	right: 5%;
+	left: 5%;
+	color: var(--blanco);
+	font-family: var(--Quicksand);
+	font-size: 22px;
+	border: 2px solid var(--blanco);
+	transition: .4s;
+}
+
+.figure__text:hover {
+	top: 12%;
+	bottom: 12%;
+	right: 7%;
+	left: 7%;
+	font-size: 19px;
+}

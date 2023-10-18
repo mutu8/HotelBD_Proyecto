@@ -1,0 +1,76 @@
+@import url('./index.css');
+@import url('./header.css');
+@import url('./footer.css');
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero__content {
+  flex: 1;
+  margin: 40px 0 20px;
+}
+
+.content__content {
+	margin: 40px 0;
+}
+
+.content__title {
+	color: var(--morado);
+	font-size: 1.5em;
+	text-align: center;
+}
+
+.content__row {
+	background-color: var(--blanco);
+	display: flex;
+	justify-content: space-between;
+	padding: 0 1.4em;
+	margin: 28px 0;
+}
+
+.content__row:first-child {
+	margin-top: 0;
+}
+
+.content__row:last-child {
+	margin-bottom: 0;
+}
+
+.content__item {
+	display: flex;
+	align-items: center;
+	padding: 10px 0;
+}
+
+.content__item__stars svg,
+.content__item__left svg {
+	color: var(--morado);
+}
+
+.content__item__stars svg {
+	margin-right: 4px;
+}
+
+.content__item__right {
+	margin-left: 1.6em;
+}
+
+.content__item__name,
+.content__item__stars {
+	margin-top: 8px;
+}
+
+.content__item__name {
+	color: var(--azul);
+}
+
+.content__item__textfield {
+	width: 100%;
+	max-width: 280px;
+	line-height: 27px;
+	color: var(--azul);
+}
+
