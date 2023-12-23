@@ -1,2 +1,2 @@
-# HotelBigDream
-Diseño y Maquetación de un sitio web de Hoteles Big Dream
+# HotelBD
+Diseño y Maquetación de un sitio web de Hoteles
