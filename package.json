@@ -1,6 +1,7 @@
 {
   "name": "hotel-big-dream",
   "version": "1.0.0",
+  "type": "module",
   "description": "Modern Hotel Website",
   "main": "index.html",
   "scripts": {
