@@ -17,7 +17,7 @@ export default defineConfig({
         precios: resolve(__dirname, 'HTML/precios.html'),
         habitaciones: resolve(__dirname, 'HTML/habitaciones.html'),
         galeria: resolve(__dirname, 'HTML/galeria.html'),
-        resenas: resolve(__dirname, 'HTML/reseñas.html'),
+        resenas: resolve(__dirname, 'HTML/resenas.html'), // Changed from reseñas.html
         contacto: resolve(__dirname, 'HTML/contacto.html'),
         reserva: resolve(__dirname, 'HTML/reserva.html'),
         mapa: resolve(__dirname, 'HTML/mapa.html'),

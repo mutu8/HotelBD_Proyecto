@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel BigDream - Reseñas de Huéspedes</title>
+    <meta name="description" content="Lee las reseñas de huéspedes satisfechos que han disfrutado de su estancia en Hotel Big Dream. Descubre por qué somos la opción preferida en Trujillo.">
+    <link rel="icon" href="../Imagenes/Logo/fav.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../Imagenes/Logo/fav.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../Estilos/modern-base.css">
+    <link rel="stylesheet" href="../Estilos/components.css">
+    <style>
+        /* Page-specific styles */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .hero__header {
+            background-color: var(--neutral-white);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-sticky);
+        }
+        
+        .header__nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-4) var(--space-8);
+        }
+        
+        .header__logo__img {
+            width: 70px;
+            transition: transform var(--transition-fast);
+        }
+        
+        .header__logo:hover .header__logo__img {
+            transform: scale(1.05);
+        }
+        
+        .header__lista {
+            display: flex;
+            gap: var(--space-6);
+        }
+        
+        .header__lista__item {
+            position: relative;
+        }
+        
+        .lista__item__ancla {
+            color: var(--secondary-navy);
+            font-weight: var(--font-medium);
+            padding-bottom: var(--space-2);
+            position: relative;
+        }
+        
+        .lista__item__ancla::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-gold);
+            transition: width var(--transition-normal);
+        }
+        
+        .lista__item__ancla:hover::after {
+            width: 100%;
+        }
+        
+        .header__lista__dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--neutral-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            min-width: 220px;
+            padding: var(--space-2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all var(--transition-normal);
+            z-index: var(--z-dropdown);
+        }
+        
+        .header__lista__item:hover .header__lista__dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown__item__anchor {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: var(--secondary-navy);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+        }
+        
+        .dropdown__item__anchor:hover {
+            background-color: var(--primary-gold);
+            color: var(--neutral-white);
+            transform: translateX(var(--space-1));
+        }
+        
+        /* Reviews Styles */
+        .hero__content {
+            flex: 1;
+            padding: var(--space-16) 0;
+        }
+        
+        .content__top {
+            max-width: 1000px;
+            margin: 0 auto var(--space-16);
+            padding: 0 var(--space-8);
+            text-align: center;
+        }
+        
+        .content__title {
+            font-family: var(--font-secondary);
+            font-size: var(--text-4xl);
+            color: var(--secondary-navy);
+            margin-bottom: var(--space-8);
+            position: relative;
+        }
+        
+        .content__title::after {
+            content: '';
+            position: absolute;
+            bottom: -var(--space-4);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-gold), var(--primary-gold-light));
+            border-radius: var(--radius-full);
+        }
+        
+        .content__text {
+            color: var(--neutral-dark-gray);
+            font-size: var(--text-lg);
+            line-height: var(--leading-relaxed);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .reviews-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 var(--space-8);
+        }
+        
+        .review-card {
+            background-color: var(--neutral-white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            padding: var(--space-8);
+            margin-bottom: var(--space-8);
+            transition: all var(--transition-normal);
+        }
+        
+        .review-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .review-card:last-child {
+            margin-bottom: 0;
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+        
+        .review-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: var(--space-4);
+            border: 2px solid var(--primary-gold);
+        }
+        
+        .review-info {
+            flex: 1;
+        }
+        
+        .review-name {
+            font-family: var(--font-secondary);
+            font-size: var(--text-xl);
+            color: var(--secondary-navy);
+            margin-bottom: var(--space-1);
+        }
+        
+        .review-date {
+            color: var(--neutral-dark-gray);
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-2);
+        }
+        
+        .review-rating {
+            display: flex;
+            gap: var(--space-1);
+        }
+        
+        .star {
+            color: var(--primary-gold);
+            width: 18px;
+            height: 18px;
+        }
+        
+        .star.empty {
+            color: var(--neutral-gray);
+        }
+        
+        .review-content {
+            color: var(--neutral-dark-gray);
+            line-height: var(--leading-relaxed);
+            margin-bottom: var(--space-4);
+        }
+        
+        .review-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+        }
+        
+        .review-tag {
+            background-color: var(--neutral-light-gray);
+            color: var(--secondary-navy);
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+        }
+        
+        .review-form-container {
+            max-width: 800px;
+            margin: var(--space-16) auto 0;
+            padding: var(--space-8);
+            background-color: var(--neutral-cream);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .review-form-title {
+            font-family: var(--font-secondary);
+            font-size: var(--text-2xl);
+            color: var(--secondary-navy);
+            text-align: center;
+            margin-bottom: var(--space-8);
+            position: relative;
+        }
+        
+        .review-form-title::after {
+            content: '';
+            position: absolute;
+            bottom: -var(--space-3);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary-gold);
+            border-radius: var(--radius-full);
+        }
+        
+        .review-form {
+            display: grid;
+            gap: var(--space-6);
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+        
+        .form-label {
+            font-weight: var(--font-medium);
+            color: var(--secondary-navy);
+        }
+        
+        .form-control {
+            padding: var(--space-3) var(--space-4);
+            border: 2px solid var(--neutral-gray);
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-fast);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .rating-select {
+            display: flex;
+            gap: var(--space-2);
+        }
+        
+        .rating-option {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .submit-button {
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-gold-light));
+            color: var(--neutral-white);
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-lg);
+            font-weight: var(--font-semibold);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: none;
+            justify-self: center;
+        }
+        
+        .submit-button:hover {
+            background: linear-gradient(135deg, var(--primary-gold-dark), var(--primary-gold));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* Footer */
+        .hero__footer {
+            background-color: var(--secondary-navy);
+            color: var(--neutral-white);
+            margin-top: auto;
+        }
+        
+        .footer__content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .content__contacto,
+        .content__redes {
+            background-color: var(--secondary-navy-dark);
+            padding: var(--space-8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .content__recomendaciones {
+            background-color: var(--neutral-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-8);
+        }
+        
+        .contacto__title,
+        .redes__title {
+            color: var(--primary-gold);
+            margin-bottom: var(--space-6);
+            font-size: var(--text-2xl);
+        }
+        
+        .contacto__lista__item {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+        
+        .contacto__item {
+            color: var(--primary-gold);
+            width: 20px;
+            height: 20px;
+            margin-right: var(--space-3);
+        }
+        
+        .lista__item__right {
+            color: var(--neutral-white);
+        }
+        
+        .contacto__ancla {
+            display: flex;
+            align-items: center;
+            color: var(--neutral-white);
+        }
+        
+        .recomendaciones__angle {
+            color: var(--neutral-gray);
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            transition: color var(--transition-fast);
+        }
+        
+        .recomendaciones__angle:hover {
+            color: var(--primary-gold);
+        }
+        
+        .recomendaciones__img {
+            margin: 0 var(--space-4);
+            max-width: 200px;
+        }
+        
+        .redes__items {
+            display: flex;
+            gap: var(--space-4);
+        }
+        
+        .redes__item__svg {
+            width: 32px;
+            height: 32px;
+            color: var(--neutral-white);
+            transition: color var(--transition-fast);
+        }
+        
+        .redes__item:hover .redes__item__svg {
+            color: var(--primary-gold);
+        }
+        
+        .footer__copy {
+            background-color: var(--secondary-navy-dark);
+            padding: var(--space-4);
+            text-align: center;
+        }
+        
+        .copy {
+            color: var(--neutral-gray);
+            font-size: var(--text-sm);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header__nav {
+                flex-direction: column;
+                padding: var(--space-4);
+            }
+            
+            .header__lista {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: var(--space-3);
+                margin-top: var(--space-4);
+            }
+            
+            .review-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-4);
+            }
+            
+            .review-avatar {
+                margin-right: 0;
+            }
+            
+            .footer__content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <header class="hero__header">
+            <nav class="header__nav">
+                <a href="../index.html" class="header__logo">
+                    <img class="header__logo__img" src="../Imagenes/Logo/Logo-alt.png" alt="BIG DREAM LOGO">
+                </a>
+                <ul class="header__lista">
+                    <li class="header__lista__item">
+                        <a href="promociones.html" class="lista__item__ancla">Promociones</a>
+                        <ul class="header__lista__dropdown">
+                            <li class="dropdown__item"><a class="dropdown__item__anchor" href="nochedebodas.html">Noche de Bodas</a></li>
+                            <li class="dropdown__item"><a href="aniversario.html" class="dropdown__item__anchor">Aniversario</a></li>
+                            <li class="dropdown__item"><a href="sanvalentin.html" class="dropdown__item__anchor">San Valentín</a></li>
+                            <li class="dropdown__item"><a href="renuevate.html" class="dropdown__item__anchor">Renúevate</a></li>
+                            <li class="dropdown__item"><a href="relajate.html" class="dropdown__item__anchor">Relájate</a></li>
+                            <li class="dropdown__item"><a href="refrescate.html" class="dropdown__item__anchor">Refréscate</a></li>
+                        </ul>
+                    </li>
+                    <li class="header__lista__item">
+                        <a href="servicios.html" class="lista__item__ancla">Servicios</a>
+                    </li>
+                    <li class="header__lista__item">
+                        <a href="precios.html" class="lista__item__ancla">Precios</a>
+                    </li>
+                    <li class="header__lista__item">
+                        <a href="habitaciones.html" class="lista__item__ancla">Habitaciones</a>
+                        <ul class="header__lista__dropdown">
+                            <li class="dropdown__item"><a class="dropdown__item__anchor" href="ejecutiva.html">Habitación Ejecutiva</a></li>
+                            <li class="dropdown__item"><a href="superior.html" class="dropdown__item__anchor">Habitación Superior</a></li>
+                            <li class="dropdown__item"><a href="superiorplus.html" class="dropdown__item__anchor">Habitación Superior Plus</a></li>
+                            <li class="dropdown__item"><a href="seniorsuite.html" class="dropdown__item__anchor">Habitación Senior Suite</a></li>
+                        </ul>
+                    </li>
+                    <li class="header__lista__item">
+                        <a href="galeria.html" class="lista__item__ancla">Galería</a>
+                    </li>
+                    <li class="header__lista__item">
+                        <a href="resenas.html" class="lista__item__ancla">Reseñas</a>
+                    </li>
+                    <li class="header__lista__item">
+                        <a href="contacto.html" class="lista__item__ancla">Contacto</a>
+                    </li>
+                    <li class="header__lista__item">
+                        <a href="reserva.html" class="lista__item__ancla">Reserva Aquí</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="hero__content">
+            <div class="content__top fade-in-up">
+                <h1 class="content__title">Reseñas de Nuestros Huéspedes</h1>
+                <p class="content__text">Descubre lo que nuestros huéspedes tienen que decir sobre su experiencia en Hotel Big Dream. Nos enorgullece ofrecer un servicio excepcional y crear momentos inolvidables para todos nuestros visitantes.</p>
+            </div>
+            
+            <div class="reviews-container">
+                <div class="review-card fade-in-up">
+                    <div class="review-header">
+                        <img src="../Imagenes/Team/user.png" alt="Avatar de usuario" class="review-avatar">
+                        <div class="review-info">
+                            <h3 class="review-name">María Rodríguez</h3>
+                            <p class="review-date">Visitó en Junio 2023</p>
+                            <div class="review-rating">
+                                <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>
+                                <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>
+                                <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>
+                                <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>
+                                <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-content">
+                        Nuestra estancia en el Hotel Big Dream fue simplemente maravillosa. Las habitaciones son amplias, limpias y decoradas con un gusto exquisito. El personal fue extremadamente atento y amable, siempre dispuesto a ayudar con cualquier solicitud. El desayuno buffet ofrecía una gran variedad de opciones deliciosas. La ubicación es perfecta, cerca de todas las atracciones principales. Sin duda, volveremos en nuestra próxima visita a Trujillo.
+                    </p>
+                    <div class="review-tags">
+                        <span class="review-tag">Habitación Superior</span>
+                        <span class="review-tag">Viaje en familia</span>
+                        <span class="review-tag">Desayuno incluido</span>
+                    </div>
+                </div>
+                
+                <div class="review-card fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="review-header">
+                        <img src="../Imagenes/Team/user.png" alt="Avatar de usuario" class="review-avatar">
+                        <div class="review-info">
+                            <h3 class="review-name">Carlos Mendoza</h3>
+                            <p class="review-date">Visitó en Abril 2023</p>
+                            <div class="review-rating">
+                                <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>
+                                <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>
+                                <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>
+                                <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>
+                                <svg class="star empty" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-content">
+                        Excelente hotel para viajes de negocios. La habitación ejecutiva era espaciosa y bien equipada, con un escritorio amplio y buena iluminación. El WiFi funcionaba perfectamente, lo que me permitió trabajar sin problemas. El personal de recepción fue muy profesional y eficiente. El restaurante del hotel ofrece platos deliciosos, aunque los precios son un poco elevados. En general, una experiencia muy satisfactoria.
+                    </p>
+                    <div class="review-tags">
+                        <span class="review-tag">Habitación Ejecutiva</span>
+                        <span class="review-tag">Viaje de negocios</span>
+                        <span class="review-tag">WiFi gratis</span>
+                    </div>
+                </div>
+                
+                <div class="review-card fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="review-header">
+                        <img src="../Imagenes/Team/user.png" alt="Avatar de usuario" class="review-avatar">
+                        <div class="review-info">
+                            <h3 class="review-name">Ana y Pedro García</h3>
+                            <p class="review-date">Visitó en Febrero 2023</p>
+                            <div class="review-rating">
+                                <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>
+                                <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>
+                                <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>
+                                <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>
+                                <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-content">
+                        Celebramos nuestro aniversario en el Hotel Big Dream y fue una experiencia inolvidable. Reservamos el paquete de aniversario y nos sorprendieron con una decoración romántica en la habitación, champagne y chocolates. La cena en el restaurante del hotel fue exquisita, con un menú degustación que nos encantó. El spa del hotel es increíble, disfrutamos mucho del masaje en pareja. Todo el personal fue muy atento y nos hicieron sentir especiales. Definitivamente recomendamos este hotel para ocasiones románticas.
+                    </p>
+                    <div class="review-tags">
+                        <span class="review-tag">Habitación Senior Suite</span>
+                        <span class="review-tag">Aniversario</span>
+                        <span class="review-tag">Spa</span>
+                        <span class="review-tag">Cena romántica</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="review-form-container fade-in-up" style="animation-delay: 0.6s;">
+                <h2 class="review-form-title">Comparte tu experiencia</h2>
+                <form class="review-form">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Nombre</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Calificación</label>
+                        <div class="rating-select">
+                            <label class="rating-option">
+                                <input type="radio" name="rating" value="5" checked>
+                                <span>5 estrellas</span>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="rating" value="4">
+                                <span>4 estrellas</span>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="rating" value="3">
+                                <span>3 estrellas</span>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="rating" value="2">
+                                <span>2 estrellas</span>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="rating" value="1">
+                                <span>1 estrella</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="review" class="form-label">Tu reseña</label>
+                        <textarea id="review" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Enviar Reseña</button>
+                </form>
+            </div>
+        </main>
+
+        <footer class="hero__footer">
+            <div class="footer__content">
+                <div class="content__contacto">
+                    <h3 class="contacto__title">Contáctanos</h3>
+                    <ul class="contacto__lista">
+                        <li class="contacto__lista__item">
+                            <svg class="contacto__item" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 576 512"><path d="M488 312.7V456c0 13.3-10.7 24-24 24H348c-6.6 0-12-5.4-12-12V356c0-6.6-5.4-12-12-12h-72c-6.6 0-12 5.4-12 12v112c0 6.6-5.4 12-12 12H112c-13.3 0-24-10.7-24-24V312.7c0-3.6 1.6-7 4.4-9.3l188-154.8c4.4-3.6 10.8-3.6 15.3 0l188 154.8c2.7 2.3 4.3 5.7 4.3 9.3zm83.6-60.9L488 182.9V44.4c0-6.6-5.4-12-12-12h-56c-6.6 0-12 5.4-12 12V117l-89.5-73.7c-17.7-14.6-43.3-14.6-61 0L4.4 251.8c-5.1 4.2-5.8 11.8-1.6 16.9l25.5 31c4.2 5.1 11.8 5.8 16.9 1.6l235.2-193.7c4.4-3.6 10.8-3.6 15.3 0l235.2 193.7c5.1 4.2 12.7 3.5 16.9-1.6l25.5-31c4.2-5.2 3.4-12.7-1.7-16.9z"/></svg>
+                            <p class="lista__item__right">Av. bigdream 999, Algún Lugar, Trujillo - Perú</p>
+                        </li>
+                        <li class="contacto__lista__item">
+                            <svg class="contacto__item" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512"><path d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"/></svg>
+                            <p class="lista__item__right">+511 965 006 302</p>
+                        </li>
+                        <li class="contacto__lista__item">
+                            <svg class="contacto__item" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512"><path d="M464 64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm0 48v40.805c-22.422 18.259-58.168 46.651-134.587 106.49-16.841 13.247-50.201 45.072-73.413 44.701-23.208.375-56.579-31.459-73.413-44.701C106.18 199.465 70.425 171.067 48 152.805V112h416zM48 400V214.398c22.914 18.251 55.409 43.862 104.938 82.646 21.857 17.205 60.134 55.186 103.062 54.955 42.717.231 80.509-37.199 103.053-54.947 49.528-38.783 82.032-64.401 104.947-82.653V400H48z"/></svg>
+                            <p class="lista__item__right">reservas@bigdream.com</p>
+                        </li>
+                        <li class="contacto__lista__item">
+                            <a class="contacto__ancla" href="mapa.html">
+                                <svg class="contacto__item" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 640 512"><path d="M128 352H32c-17.67 0-32 14.33-32 32v96c0 17.67 14.33 32 32 32h96c17.67 0 32-14.33 32-32v-96c0-17.67-14.33-32-32-32zm-24-80h192v48h48v-48h192v48h48v-57.59c0-21.17-17.23-38.41-38.41-38.41H344v-64h40c17.67 0 32-14.33 32-32V32c0-17.67-14.33-32-32-32H256c-17.67 0-32 14.33-32 32v96c0 17.67 14.33 32 32 32h40v64H94.41C73.23 224 56 241.23 56 262.41V320h48v-48zm264 80h-96c-17.67 0-32 14.33-32 32v96c0 17.67 14.33 32 32 32h96c17.67 0 32-14.33 32-32v-96c0-17.67-14.33-32-32-32zm240 0h-96c-17.67 0-32 14.33-32 32v96c0 17.67 14.33 32 32 32h96c17.67 0 32-14.33 32-32v-96c0-17.67-14.33-32-32-32z"/></svg>
+                                <p class="lista__item__right">Mapa de Sitio</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content__recomendaciones">
+                    <svg class="recomendaciones__angle" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 512"><path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"/></svg>
+                    <img class="recomendaciones__img" src="../Imagenes/Home/tripadvisor.png" alt="Recomendación">
+                    <svg class="recomendaciones__angle" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg>
+                </div>
+                <div class="content__redes">
+                    <h3 class="redes__title">Nuestras Redes Sociales</h3>
+                    <div class="redes__items">
+                        <a class="redes__item" href="#">
+                            <svg class="redes__item__svg" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 264 512"><path d="M76.7 512V283H0v-91h76.7v-71.7C76.7 42.4 124.3 0 193.8 0c33.3 0 61.9 2.5 70.2 3.6V85h-48.2c-37.8 0-45.1 18-45.1 44.3V192H256l-11.7 91h-73.6v229"/></svg>
+                        </a>
+                        <a class="redes__item" href="#">
+                            <svg class="redes__item__svg" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+                        </a>
+                        <a class="redes__item" href="#">
+                            <svg class="redes__item__svg" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 640 512"><path d="M386.061 228.496c1.834 9.692 3.143 19.384 3.143 31.956C389.204 370.205 315.599 448 204.8 448c-106.084 0-192-85.915-192-192s85.916-192 192-192c51.864 0 95.083 18.859 128.611 50.292l-52.126 50.03c-14.145-13.621-39.028-29.599-76.485-29.599-65.484 0-118.92 54.221-118.92 121.277 0 67.056 53.436 121.277 118.92 121.277 75.961 0 104.513-54.745 108.965-82.773H204.8v-66.009h181.261zm185.406 6.437V179.2h-56.001v55.733h-55.733v56.001h55.733v55.733h56.001v-55.733H627.2v-56.001h-55.733z"/></svg>
+                        </a>
+                        <a class="redes__item" href="#">
+                            <svg class="redes__item__svg" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 576 512"><path d="M166.4 280.521c0 13.236-10.73 23.966-23.966 23.966s-23.966-10.73-23.966-23.966 10.73-23.966 23.966-23.966 23.966 10.729 23.966 23.966zm264.962-23.956c-13.23 0-23.956 10.725-23.956 23.956 0 13.23 10.725 23.956 23.956 23.956 13.23 0 23.956-10.725 23.956-23.956-.001-13.231-10.726-23.956-23.956-23.956zm89.388 139.49c-62.667 49.104-153.276 38.109-202.379-24.559l-30.979 46.325-30.683-45.939c-48.277 60.39-135.622 71.891-197.885 26.055-64.058-47.158-77.759-137.316-30.601-201.374A186.762 186.762 0 0 0 0 139.416l90.286-.05a358.48 358.48 0 0 1 197.065-54.03 350.382 350.382 0 0 1 192.181 53.349l96.218.074a185.713 185.713 0 0 0-28.352 57.649c46.793 62.747 34.964 151.37-26.648 199.647zM259.366 281.761c-.007-63.557-51.535-115.075-115.092-115.068C80.717 166.7 29.2 218.228 29.206 281.785c.007 63.557 51.535 115.075 115.092 115.068 63.513-.075 114.984-51.539 115.068-115.052v-.04zm28.591-10.455c5.433-73.44 65.51-130.884 139.12-133.022a339.146 339.146 0 0 0-139.727-27.812 356.31 356.31 0 0 0-140.164 27.253c74.344 1.582 135.299 59.424 140.771 133.581zm251.706-28.767c-21.992-59.634-88.162-90.148-147.795-68.157-59.634 21.992-90.148 88.162-68.157 147.795v.032c22.038 59.607 88.198 90.091 147.827 68.113 59.615-22.004 90.113-88.162 68.125-147.783zm-326.039 37.975v.115c-.057 39.328-31.986 71.163-71.314 71.106-39.328-.057-71.163-31.986-71.106-71.314.057-39.328 31.986-71.163 71.314-71.106 39.259.116 71.042 31.94 71.106 71.199zm-24.512 0v-.084c-.051-25.784-20.994-46.645-46.778-46.594-25.784.051-46.645 20.994-46.594 46.777.051 25.784 20.994 46.645 46.777 46.594 25.726-.113 46.537-20.968 46.595-46.693zm313.423 0v.048c-.02 39.328-31.918 71.194-71.247 71.173s-71.194-31.918-71.173-71.247c.02-39.328 31.918-71.194 71.247-71.173 39.29.066 71.121 31.909 71.173 71.199zm-24.504-.008c-.009-25.784-20.918-46.679-46.702-46.67-25.784.009-46.679 20.918-46.67 46.702.009 25.784 20.918 46.678 46.702 46.67 25.765-.046 46.636-20.928 46.67-46.693v-.009z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__copy">
+                <p class="copy">Copyright © 2025 BIG DREAM - Todos los derechos reservados - Diseñado y Desarrollado por BIG DREAM Developers</p>
+            </div>    
+        </footer>
+    </div>
+
+    <script>
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe elements with fade-in-up class
+            document.querySelectorAll('.fade-in-up').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                observer.observe(el);
+            });
+            
+            // Form submission
+            const reviewForm = document.querySelector('.review-form');
+            if (reviewForm) {
+                reviewForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // In a real implementation, this would send the form data to a server
+                    console.log('Review submitted');
+                    
+                    // Show success message
+                    alert('¡Gracias por tu reseña! Será publicada después de ser revisada.');
+                    
+                    // Reset form
+                    reviewForm.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
