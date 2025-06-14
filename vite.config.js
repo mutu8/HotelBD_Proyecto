@@ -12,15 +12,25 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        promociones: resolve(__dirname, 'pages/promociones.html'),
-        servicios: resolve(__dirname, 'pages/servicios.html'),
-        precios: resolve(__dirname, 'pages/precios.html'),
-        habitaciones: resolve(__dirname, 'pages/habitaciones.html'),
-        galeria: resolve(__dirname, 'pages/galeria.html'),
-        resenas: resolve(__dirname, 'pages/resenas.html'),
-        contacto: resolve(__dirname, 'pages/contacto.html'),
-        reserva: resolve(__dirname, 'pages/reserva.html'),
-        // Add other pages as needed
+        promociones: resolve(__dirname, 'HTML/promociones.html'),
+        servicios: resolve(__dirname, 'HTML/servicios.html'),
+        precios: resolve(__dirname, 'HTML/precios.html'),
+        habitaciones: resolve(__dirname, 'HTML/habitaciones.html'),
+        galeria: resolve(__dirname, 'HTML/galeria.html'),
+        resenas: resolve(__dirname, 'HTML/reseñas.html'),
+        contacto: resolve(__dirname, 'HTML/contacto.html'),
+        reserva: resolve(__dirname, 'HTML/reserva.html'),
+        mapa: resolve(__dirname, 'HTML/mapa.html'),
+        ejecutiva: resolve(__dirname, 'HTML/ejecutiva.html'),
+        superior: resolve(__dirname, 'HTML/superior.html'),
+        superiorplus: resolve(__dirname, 'HTML/superiorplus.html'),
+        seniorsuite: resolve(__dirname, 'HTML/seniorsuite.html'),
+        nochedebodas: resolve(__dirname, 'HTML/nochedebodas.html'),
+        aniversario: resolve(__dirname, 'HTML/aniversario.html'),
+        sanvalentin: resolve(__dirname, 'HTML/sanvalentin.html'),
+        renuevate: resolve(__dirname, 'HTML/renuevate.html'),
+        relajate: resolve(__dirname, 'HTML/relajate.html'),
+        refrescate: resolve(__dirname, 'HTML/refrescate.html')
       }
     }
   },
